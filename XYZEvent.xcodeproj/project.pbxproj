@@ -12,6 +12,12 @@
 		D68F502C228583C40039F34B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D68F502A228583C40039F34B /* Main.storyboard */; };
 		D68F502E228583C60039F34B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D68F502D228583C60039F34B /* Assets.xcassets */; };
 		D68F5031228583C60039F34B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D68F502F228583C60039F34B /* LaunchScreen.storyboard */; };
+		D68F503B228585360039F34B /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = D68F5038228585350039F34B /* LICENSE */; };
+		D68F503C228585360039F34B /* XYZEvent.podspec in Resources */ = {isa = PBXBuildFile; fileRef = D68F5039228585360039F34B /* XYZEvent.podspec */; };
+		D68F503D228585360039F34B /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D68F503A228585360039F34B /* README.md */; };
+		D68F5040228585650039F34B /* XYZEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68F503F228585650039F34B /* XYZEvent.swift */; };
+		D68F50422285857E0039F34B /* XYZCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68F50412285857E0039F34B /* XYZCalendar.swift */; };
+		D68F5044228585820039F34B /* XYZReminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68F5043228585820039F34B /* XYZReminder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +28,12 @@
 		D68F502D228583C60039F34B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D68F5030228583C60039F34B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D68F5032228583C60039F34B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D68F5038228585350039F34B /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		D68F5039228585360039F34B /* XYZEvent.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = XYZEvent.podspec; sourceTree = "<group>"; };
+		D68F503A228585360039F34B /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		D68F503F228585650039F34B /* XYZEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYZEvent.swift; sourceTree = "<group>"; };
+		D68F50412285857E0039F34B /* XYZCalendar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XYZCalendar.swift; sourceTree = "<group>"; };
+		D68F5043228585820039F34B /* XYZReminder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XYZReminder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +50,9 @@
 		D68F501A228583C40039F34B = {
 			isa = PBXGroup;
 			children = (
+				D68F5038228585350039F34B /* LICENSE */,
+				D68F503A228585360039F34B /* README.md */,
+				D68F5039228585360039F34B /* XYZEvent.podspec */,
 				D68F5025228583C40039F34B /* XYZEvent */,
 				D68F5024228583C40039F34B /* Products */,
 			);
@@ -54,6 +69,7 @@
 		D68F5025228583C40039F34B /* XYZEvent */ = {
 			isa = PBXGroup;
 			children = (
+				D68F503E2285853D0039F34B /* Source */,
 				D68F5026228583C40039F34B /* AppDelegate.swift */,
 				D68F5028228583C40039F34B /* ViewController.swift */,
 				D68F502A228583C40039F34B /* Main.storyboard */,
@@ -62,6 +78,16 @@
 				D68F5032228583C60039F34B /* Info.plist */,
 			);
 			path = XYZEvent;
+			sourceTree = "<group>";
+		};
+		D68F503E2285853D0039F34B /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				D68F503F228585650039F34B /* XYZEvent.swift */,
+				D68F5043228585820039F34B /* XYZReminder.swift */,
+				D68F50412285857E0039F34B /* XYZCalendar.swift */,
+			);
+			path = Source;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -122,8 +148,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D68F503D228585360039F34B /* README.md in Resources */,
 				D68F5031228583C60039F34B /* LaunchScreen.storyboard in Resources */,
 				D68F502E228583C60039F34B /* Assets.xcassets in Resources */,
+				D68F503C228585360039F34B /* XYZEvent.podspec in Resources */,
+				D68F503B228585360039F34B /* LICENSE in Resources */,
 				D68F502C228583C40039F34B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -136,7 +165,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D68F5029228583C40039F34B /* ViewController.swift in Sources */,
+				D68F50422285857E0039F34B /* XYZCalendar.swift in Sources */,
 				D68F5027228583C40039F34B /* AppDelegate.swift in Sources */,
+				D68F5040228585650039F34B /* XYZEvent.swift in Sources */,
+				D68F5044228585820039F34B /* XYZReminder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,6 +317,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = E5VG453CHM;
 				INFOPLIST_FILE = XYZEvent/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -303,6 +336,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = E5VG453CHM;
 				INFOPLIST_FILE = XYZEvent/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
