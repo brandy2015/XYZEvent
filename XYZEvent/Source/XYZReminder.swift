@@ -12,7 +12,7 @@ public let XYZReminder = XYZReminderKit()
 
 public class XYZReminderKit: NSObject {
     
-    func AddReminder(title:String,dueDateComponents:DateComponents,succeeded : @escaping () -> Void,failed : @escaping () -> Void) {
+    public func AddReminder(title:String,dueDateComponents:DateComponents,succeeded : @escaping () -> Void,failed : @escaping () -> Void) {
         //获取"提醒"的访问授权
         let eventStore = EKEventStore()
         
@@ -48,7 +48,7 @@ public class XYZReminderKit: NSObject {
     
     
     
-    func deleteReminder(id:String,succeeded : @escaping () -> Void,failed : @escaping () -> Void) {  
+    public func deleteReminder(id:String,succeeded : @escaping () -> Void,failed : @escaping () -> Void) {
         let eventStore = EKEventStore()
         //        let formatter = DateFormatter.init()
         //        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
@@ -81,7 +81,7 @@ public class XYZReminderKit: NSObject {
     
     
     
-    func FetchAllReminders(GetBackEvent: @escaping ([EKReminder]?) -> Void) {
+    public func FetchAllReminders(GetBackEvent: @escaping ([EKReminder]?) -> Void) {
         // 在取得提醒之前，需要先获取授权
         let eventStore = EKEventStore()
         //        let formatter = DateFormatter.init()
@@ -133,7 +133,7 @@ public class XYZReminderKit: NSObject {
     }
     
     
-    func EditReminder(ID:String,title:String = "修改成功")  {
+    public func EditReminder(ID:String,title:String = "修改成功")  {
         //获取"提醒"的访问授权
         let eventStore = EKEventStore()
         eventStore.requestAccess(to: .reminder) {
@@ -172,7 +172,7 @@ public var XYZAlert = XYZAlertObject()
 public class XYZAlertObject: NSObject {
     var alertCon = UIAlertController()
     
-    func Config()  {
+    public func Config()  {
         self.alertCon = UIAlertController()
         let saveBTN = UIAlertAction(title: "保存成功", style: .default) { (_) in
             self.alertCon.dismiss(animated: true, completion: nil)
@@ -180,7 +180,7 @@ public class XYZAlertObject: NSObject {
         alertCon.addAction(saveBTN)
     }
     
-    func presentAlert(VC:UIViewController)  {
+    public func presentAlert(VC:UIViewController)  {
         Config()
         VC.present(alertCon, animated: true, completion: nil)
         
@@ -189,11 +189,6 @@ public class XYZAlertObject: NSObject {
 }
 //添加一个提醒事项
 public extension Date{
-    
-    
-    
-    
-    
     
     func AddNewReminder(title:String)  {
         let eventStore = EKEventStore()

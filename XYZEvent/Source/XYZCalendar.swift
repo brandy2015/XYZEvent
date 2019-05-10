@@ -22,7 +22,7 @@ import EventKit
 public let XYZCalendar = XYZCalendarKit()
 public class XYZCalendarKit{
     
-    func AddCalendarEvent(title:String,notes:String ,startDate:Date = Date(),endDate:Date = Date(),succeeded : @escaping () -> Void,failed : @escaping () -> Void) {
+    public func AddCalendarEvent(title:String,notes:String ,startDate:Date = Date(),endDate:Date = Date(),succeeded : @escaping () -> Void,failed : @escaping () -> Void) {
         let eventStore = EKEventStore()
         
         // 'EKEntityType.reminder' or 'EKEntityType.event'
@@ -70,7 +70,7 @@ public class XYZCalendarKit{
         })
     }
     
-    func FetchAllCalendars前后90天(With DateX:Date = Date(),GetBackEvent: @escaping ([EKEvent]?) -> Void) {
+    public func FetchAllCalendars前后90天(With DateX:Date = Date(),GetBackEvent: @escaping ([EKEvent]?) -> Void) {
         
         let eventStore = EKEventStore()
         // 请求日历事件
@@ -111,7 +111,7 @@ public class XYZCalendarKit{
     //    3，功能改进：只查询本地日历中的事件
     //    从上面的运行结果可以看出，我们把系统中所有的日历事件都查询出来了，不管是本地日历事件（如果有iCloud同步则是iCloud日历），还是系统自带的节假日、生日日历事件。如果我们只关注本地日历事件，可以在查询的时候添加个日历参数即可。代码如下。
     //
-    func FetchLocalCalendarEvent前后90天(With DateX:Date = Date(),GetBackEvent: @escaping ([EKEvent]?) -> Void) {
+    public func FetchLocalCalendarEvent前后90天(With DateX:Date = Date(),GetBackEvent: @escaping ([EKEvent]?) -> Void) {
         
         let eventStore = EKEventStore()
         // 请求日历事件
@@ -157,7 +157,7 @@ public class XYZCalendarKit{
     
     
     
-    func deleteCalendars(id:String,succeeded : @escaping () -> Void,failed : @escaping () -> Void) {
+    public func deleteCalendars(id:String,succeeded : @escaping () -> Void,failed : @escaping () -> Void) {
         
         print("XXXXXXXX!!!!!!1111")
         let eventStore = EKEventStore()
