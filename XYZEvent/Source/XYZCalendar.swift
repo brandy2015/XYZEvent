@@ -9,20 +9,21 @@
 import UIKit
 import EventKit
 
-
-//class XYZCalendar: NSObject {
-//
-//}
-
-
 //工具函数列表
 
 //XYZCalendarKit().只查询本地日历中的时间前后3个月()
 
-public let XYZCalendar = XYZCalendarKit()
+
 public class XYZCalendarKit{
     
-    public func AddCalendarEvent(title:String,notes:String ,startDate:Date = Date(),endDate:Date = Date(),succeeded : @escaping () -> Void,failed : @escaping () -> Void) {
+}
+
+// MARK: - CRUD methods
+//增加(Create)、读取查询(Retrieve)、更新(Update)和删除(Delete)
+
+// MARK:- Create--(添加)
+public extension XYZCalendarKit{
+    func Add(title:String,notes:String ,startDate:Date = Date(),endDate:Date = Date(),succeeded : @escaping (String?) -> Void,failed : @escaping () -> Void) {
         let eventStore = EKEventStore()
         
         // 'EKEntityType.reminder' or 'EKEntityType.event'
@@ -50,13 +51,25 @@ public class XYZCalendarKit{
                 event.endDate = endDate
                 event.notes = notes
                 
+                
+                let alarm = EKAlarm(absoluteDate: endDate)
+                
+                event.addAlarm(alarm)
+                //                reminder.addAlarm(alarm)
+                
                 //此处可以修改提醒事项在哪个空间
                 event.calendar = eventStore.defaultCalendarForNewEvents
                 do{
                     try eventStore.save(event, span: .thisEvent)
                     print("Saved Event")
+                    
+                    succeeded(event.calendarItemExternalIdentifier)
+                    
+                    //                    print("calendarid是🐒🐒🐒🐒🐒")
+                    //                    print(event.calendarItemExternalIdentifier as Any)
+                    
                     //成功后执行
-                    succeeded()
+                    
                 }catch{
                     //保存失败并提醒，跳出提醒，提醒失败内容
                     print("保存失败")
@@ -70,7 +83,16 @@ public class XYZCalendarKit{
         })
     }
     
-    public func FetchAllCalendars前后90天(With DateX:Date = Date(),GetBackEvent: @escaping ([EKEvent]?) -> Void) {
+}
+// MARK:- Retrieve--(读取查询) All--获取所有数据
+public extension XYZCalendarKit{
+    func FetchWith(id:String){
+        
+    }
+    
+    
+    
+    func FetchAllCalendars前后90天(With DateX:Date = Date(),GetBackEvent: @escaping ([EKEvent]?) -> Void) {
         
         let eventStore = EKEventStore()
         // 请求日历事件
@@ -107,11 +129,14 @@ public class XYZCalendarKit{
             }
         })
     }
+    
+    
+    
     //
     //    3，功能改进：只查询本地日历中的事件
     //    从上面的运行结果可以看出，我们把系统中所有的日历事件都查询出来了，不管是本地日历事件（如果有iCloud同步则是iCloud日历），还是系统自带的节假日、生日日历事件。如果我们只关注本地日历事件，可以在查询的时候添加个日历参数即可。代码如下。
     //
-    public func FetchLocalCalendarEvent前后90天(With DateX:Date = Date(),GetBackEvent: @escaping ([EKEvent]?) -> Void) {
+    func FetchLocalCalendarEvent前后90天(With DateX:Date = Date(),GetBackEvent: @escaping ([EKEvent]?) -> Void) {
         
         let eventStore = EKEventStore()
         // 请求日历事件
@@ -155,9 +180,17 @@ public class XYZCalendarKit{
         })
     }
     
-    
-    
-    public func deleteCalendars(id:String,succeeded : @escaping () -> Void,failed : @escaping () -> Void) {
+}
+
+// MARK:- Update--(更新)
+public extension XYZCalendarKit{
+    func Update(with id:String){
+        
+    }
+}
+// MARK:- Delete--(删除)
+public extension XYZCalendarKit{
+    func delete(id:String,succeeded : @escaping () -> Void,failed : @escaping () -> Void) {
         
         print("XXXXXXXX!!!!!!1111")
         let eventStore = EKEventStore()
@@ -196,8 +229,9 @@ public class XYZCalendarKit{
         })
     }
     
-    
 }
+//添加提醒
+
 
 
 //不成熟函数
