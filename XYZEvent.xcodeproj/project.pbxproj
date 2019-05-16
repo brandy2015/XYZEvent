@@ -18,6 +18,7 @@
 		D68F5040228585650039F34B /* XYZEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68F503F228585650039F34B /* XYZEvent.swift */; };
 		D68F50422285857E0039F34B /* XYZCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68F50412285857E0039F34B /* XYZCalendar.swift */; };
 		D68F5044228585820039F34B /* XYZReminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68F5043228585820039F34B /* XYZReminder.swift */; };
+		D6F537CF228CF0F100F651B7 /* XYZAppReminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F537CE228CF0F100F651B7 /* XYZAppReminder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		D68F503F228585650039F34B /* XYZEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYZEvent.swift; sourceTree = "<group>"; };
 		D68F50412285857E0039F34B /* XYZCalendar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XYZCalendar.swift; sourceTree = "<group>"; };
 		D68F5043228585820039F34B /* XYZReminder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XYZReminder.swift; sourceTree = "<group>"; };
+		D6F537CE228CF0F100F651B7 /* XYZAppReminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYZAppReminder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +88,7 @@
 				D68F503F228585650039F34B /* XYZEvent.swift */,
 				D68F5043228585820039F34B /* XYZReminder.swift */,
 				D68F50412285857E0039F34B /* XYZCalendar.swift */,
+				D6F537CE228CF0F100F651B7 /* XYZAppReminder.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -169,6 +172,7 @@
 				D68F5027228583C40039F34B /* AppDelegate.swift in Sources */,
 				D68F5040228585650039F34B /* XYZEvent.swift in Sources */,
 				D68F5044228585820039F34B /* XYZReminder.swift in Sources */,
+				D6F537CF228CF0F100F651B7 /* XYZAppReminder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

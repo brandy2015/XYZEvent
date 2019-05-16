@@ -184,6 +184,8 @@ public extension XYZReminderKit{
             if granted{
                 // 获取授权后，我们可以得到所有的提醒事项
                 let predicate = eventStore.predicateForReminders(in: nil)
+                
+                
                 eventStore.fetchReminders(matching: predicate, completion: {
                     (reminders: [EKReminder]?) -> Void in
                     
@@ -199,6 +201,7 @@ public extension XYZReminderKit{
                             }catch{
                                 print("保存失败: \(error)")
                             }
+                            break
                         }
                     }
                 })

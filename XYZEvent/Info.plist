@@ -41,5 +41,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSCalendarsUsageDescription</key>
+	<string>访问日历需要您授权</string>
+	<key>NSRemindersUsageDescription</key>
+	<string>访问提醒事项需要您授权</string>
 </dict>
 </plist>
