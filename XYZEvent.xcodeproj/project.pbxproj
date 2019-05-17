@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D6282A6E228E361D00A0AE86 /* TestTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6282A6D228E361D00A0AE86 /* TestTVC.swift */; };
+		D6282A70228E546100A0AE86 /* TestCalTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6282A6F228E546100A0AE86 /* TestCalTVC.swift */; };
+		D6282A72228EAD2D00A0AE86 /* XYZCalendar_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6282A71228EAD2D00A0AE86 /* XYZCalendar_Extension.swift */; };
+		D6282A74228EB39800A0AE86 /* XYZReminder_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6282A73228EB39800A0AE86 /* XYZReminder_Extension.swift */; };
 		D68F5027228583C40039F34B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68F5026228583C40039F34B /* AppDelegate.swift */; };
 		D68F5029228583C40039F34B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68F5028228583C40039F34B /* ViewController.swift */; };
 		D68F502C228583C40039F34B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D68F502A228583C40039F34B /* Main.storyboard */; };
@@ -22,6 +26,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D6282A6D228E361D00A0AE86 /* TestTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTVC.swift; sourceTree = "<group>"; };
+		D6282A6F228E546100A0AE86 /* TestCalTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCalTVC.swift; sourceTree = "<group>"; };
+		D6282A71228EAD2D00A0AE86 /* XYZCalendar_Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYZCalendar_Extension.swift; sourceTree = "<group>"; };
+		D6282A73228EB39800A0AE86 /* XYZReminder_Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYZReminder_Extension.swift; sourceTree = "<group>"; };
 		D68F5023228583C40039F34B /* XYZEvent.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XYZEvent.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D68F5026228583C40039F34B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D68F5028228583C40039F34B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -74,6 +82,8 @@
 				D68F503E2285853D0039F34B /* Source */,
 				D68F5026228583C40039F34B /* AppDelegate.swift */,
 				D68F5028228583C40039F34B /* ViewController.swift */,
+				D6282A6D228E361D00A0AE86 /* TestTVC.swift */,
+				D6282A6F228E546100A0AE86 /* TestCalTVC.swift */,
 				D68F502A228583C40039F34B /* Main.storyboard */,
 				D68F502D228583C60039F34B /* Assets.xcassets */,
 				D68F502F228583C60039F34B /* LaunchScreen.storyboard */,
@@ -87,7 +97,9 @@
 			children = (
 				D68F503F228585650039F34B /* XYZEvent.swift */,
 				D68F5043228585820039F34B /* XYZReminder.swift */,
+				D6282A73228EB39800A0AE86 /* XYZReminder_Extension.swift */,
 				D68F50412285857E0039F34B /* XYZCalendar.swift */,
+				D6282A71228EAD2D00A0AE86 /* XYZCalendar_Extension.swift */,
 				D6F537CE228CF0F100F651B7 /* XYZAppReminder.swift */,
 			);
 			path = Source;
@@ -167,11 +179,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D6282A70228E546100A0AE86 /* TestCalTVC.swift in Sources */,
+				D6282A74228EB39800A0AE86 /* XYZReminder_Extension.swift in Sources */,
 				D68F5029228583C40039F34B /* ViewController.swift in Sources */,
 				D68F50422285857E0039F34B /* XYZCalendar.swift in Sources */,
+				D6282A6E228E361D00A0AE86 /* TestTVC.swift in Sources */,
 				D68F5027228583C40039F34B /* AppDelegate.swift in Sources */,
 				D68F5040228585650039F34B /* XYZEvent.swift in Sources */,
 				D68F5044228585820039F34B /* XYZReminder.swift in Sources */,
+				D6282A72228EAD2D00A0AE86 /* XYZCalendar_Extension.swift in Sources */,
 				D6F537CF228CF0F100F651B7 /* XYZAppReminder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

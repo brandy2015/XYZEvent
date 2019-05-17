@@ -13,7 +13,6 @@ import EventKit
 
 //XYZCalendarKit().只查询本地日历中的时间前后3个月()
 
-
 public class XYZCalendarKit{
     
 }
@@ -24,6 +23,7 @@ public class XYZCalendarKit{
 // MARK:- Create--(添加)
 public extension XYZCalendarKit{
     func Add(title:String,notes:String ,startDate:Date = Date(),endDate:Date = Date(),succeeded : @escaping (String?) -> Void,failed : @escaping () -> Void) {
+        
         let eventStore = EKEventStore()
         
         // 'EKEntityType.reminder' or 'EKEntityType.event'
@@ -86,10 +86,57 @@ public extension XYZCalendarKit{
 }
 // MARK:- Retrieve--(读取查询) All--获取所有数据
 public extension XYZCalendarKit{
-    func FetchWith(id:String){
+//    CalendarX.calendarItemExternalIdentifier
+    func FetchWith(id:String,GetBackEvent: @escaping (EKEvent?,EKEventStore?) -> Void) {
         
+        let eventStore = EKEventStore()
+        // 请求日历事件
+        eventStore.requestAccess(to: .event, completion: {
+            granted, error in
+            
+            guard granted else{
+                print("授权失败，需要跳转到权限界面，并且跳出Alert")
+                return
+            }
+            
+            if let error = error{
+                print("有错误，需要提醒")
+                print(error)
+            }else{
+                // 获取所有的事件（前后90天）
+                let startDate = Date().addingTimeInterval(-3600*24*90)
+                let endDate = Date().addingTimeInterval(3600*24*90)
+                let predicate2 = eventStore.predicateForEvents(withStart: startDate,
+                                                               end: endDate, calendars: nil)
+                print("查询范围 开始:\(startDate) 结束:\(endDate)")
+                
+                
+                
+                
+                let eventsX = eventStore.events(matching: predicate2)
+                for i in eventsX {
+//                    print("循环了")
+//                    print(i.calendarItemExternalIdentifier)
+//                    print(i.eventIdentifier)
+                    
+                    if i.calendarItemExternalIdentifier == id{
+                        //返回Event
+//                        print("找到了")
+//                        print("🐒")
+//                        print("标题     \(String(describing: i.title))" )
+//                        print("开始时间: \(String(describing: i.startDate))" )
+//                        print("结束时间: \(String(describing: i.endDate))" )
+//                        print("ID:      \(String(describing: i.eventIdentifier))" )
+//                        print("🐒🐒")
+                        GetBackEvent(i,eventStore)
+                        break
+                    }
+                    
+                    
+                }
+            }
+        })
     }
-    
     
     
     func FetchAllCalendars前后90天(With DateX:Date = Date(),GetBackEvent: @escaping ([EKEvent]?) -> Void) {
@@ -184,16 +231,73 @@ public extension XYZCalendarKit{
 
 // MARK:- Update--(更新)
 public extension XYZCalendarKit{
-    func Update(with id:String){
+
+    func Update(CalendarX:EKEvent,GetBackEvent: @escaping (EKEvent?) -> Void) {
         
+        self.FetchWith(id: CalendarX.calendarItemExternalIdentifier) { (CalendarXToUpdate,eventStoreX) in
+            
+            if let CalendarXToUpdate = CalendarXToUpdate,let eventStore = eventStoreX {
+                CalendarXToUpdate.title = CalendarX.title
+                
+                CalendarXToUpdate.notes = CalendarX.notes
+                CalendarXToUpdate.startDate = CalendarX.startDate
+                
+                CalendarXToUpdate.endDate = CalendarX.endDate
+                
+                //保存提醒事项
+                do {
+                    try eventStore.save(CalendarXToUpdate, span: .thisEvent, commit: true)
+                     GetBackEvent(CalendarXToUpdate)
+                    
+                    print("Update保存成功XX！")
+                }catch{
+                    print("保存失败: \(error)")
+                }
+                
+                
+            }
+        }
+    }
+    
+    
+    func Update(with id:String,ToNewCalendarX:EKEvent,GetBackEvent: @escaping (EKEvent?) -> Void) {
+        self.FetchWith(id: id) { (CalendarXToUpdate,eventStoreX) in
+            
+            if let CalendarXToUpdate = CalendarXToUpdate,let eventStore = eventStoreX {
+                
+
+                CalendarXToUpdate.title = ToNewCalendarX.title
+                CalendarXToUpdate.notes = ToNewCalendarX.notes
+                CalendarXToUpdate.startDate = ToNewCalendarX.startDate
+                CalendarXToUpdate.endDate = ToNewCalendarX.endDate
+                
+                
+                //保存提醒事项
+                do {
+                    try eventStore.save(CalendarXToUpdate, span: .thisEvent, commit: true)
+                    GetBackEvent(CalendarXToUpdate)
+                    
+                    print("保存成功！")
+                }catch{
+                    GetBackEvent(nil)
+                    print("保存失败: \(error)")
+                }
+                
+                
+            }
+        }
     }
 }
 // MARK:- Delete--(删除)
 public extension XYZCalendarKit{
+    
+    
     func delete(id:String,succeeded : @escaping () -> Void,failed : @escaping () -> Void) {
         
         print("XXXXXXXX!!!!!!1111")
         let eventStore = EKEventStore()
+        
+        
         //        let formatter = DateFormatter.init()
         //        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         //        let date = formatter.date(from: "2019-04-26 18:07:00")

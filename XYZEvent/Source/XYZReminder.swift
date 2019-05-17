@@ -64,33 +64,37 @@ public extension XYZReminderKit{
 
 //添加一个提醒事项
 public extension Date{
-    
-    func AddNewReminder(title:String)  {
-        let eventStore = EKEventStore()
-        //        let formatter = DateFormatter.init()
-        //        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        //        let date = formatter.date(from: "2019-04-26 18:07:00")
-        eventStore.requestAccess(to: .reminder, completion: { _,error in
-            let reminder = EKReminder(eventStore: eventStore)
-            
-            reminder.title = title //"今天要运动"
-            
-            
-            let dueDate = self.dateComponentFromDate(self)
-            reminder.dueDateComponents = dueDate
-            reminder.calendar = eventStore.defaultCalendarForNewReminders();
-            //            添加闹钟
-            let alarm = EKAlarm.init(relativeOffset: -5)
-            reminder.addAlarm(alarm);
-            do {
-                //                try self.eventStore.save(event, span: span)
-                try eventStore.save(reminder, commit: true)
-                print("保存成！")
-            }catch{
-                print("创建失败: \(error)")
-            }
-        })
+    func AddNewReminder(title:String,notes:String,dueDate:Date,succeeded : @escaping (String?) -> Void,failed : @escaping () -> Void) {
+        
+        XYZEvent.Reminder.Add(title: title, notes: notes, dueDate: dueDate, succeeded: succeeded, failed: failed)
+        
     }
+//    func AddNewReminder(title:String)  {
+//        let eventStore = EKEventStore()
+//        //        let formatter = DateFormatter.init()
+//        //        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+//        //        let date = formatter.date(from: "2019-04-26 18:07:00")
+//        eventStore.requestAccess(to: .reminder, completion: { _,error in
+//            let reminder = EKReminder(eventStore: eventStore)
+//
+//            reminder.title = title //"今天要运动"
+//
+//
+//            let dueDate = self.dateComponentFromDate(self)
+//            reminder.dueDateComponents = dueDate
+//            reminder.calendar = eventStore.defaultCalendarForNewReminders();
+//            //            添加闹钟
+//            let alarm = EKAlarm.init(relativeOffset: -5)
+//            reminder.addAlarm(alarm);
+//            do {
+//                //                try self.eventStore.save(event, span: span)
+//                try eventStore.save(reminder, commit: true)
+//                print("保存成！")
+//            }catch{
+//                print("创建失败: \(error)")
+//            }
+//        })
+//    }
     
     
     
@@ -119,33 +123,60 @@ public extension Date{
 
 // MARK:- Retrieve--(读取查询) All--获取所有数据
 public extension XYZReminderKit{
+    func FetchWithId(id:String,GetBackEvent: @escaping (EKReminder?,EKEventStore?) -> Void) {
+        // 在取得提醒之前，需要先获取授权
+        let eventStore = EKEventStore()
+
+        eventStore.requestAccess(to: .reminder) {
+            (granted: Bool, error: Error?) in
+            
+            if granted{
+                // 获取授权后，我们可以得到所有的提醒事项
+                let predicate = eventStore.predicateForReminders(in: nil)
+                
+                eventStore.fetchReminders(matching: predicate, completion: {
+                    (reminders: [EKReminder]?) -> Void in
+                    
+                    //遍历所有提醒并修改
+                    for reminder in reminders! {
+                        if reminder.calendarItemIdentifier == id{
+                            print("用于对比ReminderX是😺😺😺😺😺😺")
+                            print(reminder)
+                            
+                            GetBackEvent(reminder,eventStore)
+                            break
+                        }
+                    }
+                })
+                
+//                eventStore.fetchReminders(matching: predicate, completion: {
+//                    (reminders: [EKReminder]?) -> Void in
+//                    //这句必须使用如果不使用闭包返回有问题，需要排查具体原因
+//                    print(reminders as Any)
+//
+//                     print("ReminderX22222是🐒🐒🐒")
+//
+//
+//
+//                    GetBackEvent(reminders)
+//
+//
+//                })
+            }else{
+                print("获取提醒失败！需要授权允许对提醒事项的访问。")
+            }
+        }
+        
+        
+        
+    }
+    
+    
     
     func FetchAll(GetBackEvent: @escaping ([EKReminder]?) -> Void) {
         // 在取得提醒之前，需要先获取授权
         let eventStore = EKEventStore()
-        //        let formatter = DateFormatter.init()
-        //        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        //        let date = formatter.date(from: "2019-04-26 18:07:00")
-        //        eventStore.requestAccess(to: .reminder, completion: { _,error in
-        //            let reminder = EKReminder(eventStore: eventStore)
-        //
-        //            reminder.title = title //"今天要运动"
-        //
-        //
-        //            let dueDate = self.dateComponentFromDate(self)
-        //            reminder.dueDateComponents = dueDate
-        //            reminder.calendar = eventStore.defaultCalendarForNewReminders();
-        //            //            添加闹钟
-        //            let alarm = EKAlarm.init(relativeOffset: -5)
-        //            reminder.addAlarm(alarm);
-        //            do {
-        //                //                try self.eventStore.save(event, span: span)
-        //                try eventStore.save(reminder, commit: true)
-        //                print("保存成！")
-        //            }catch{
-        //                print("创建失败: \(error)")
-        //            }
-        //        })
+       
         
         
         eventStore.requestAccess(to: .reminder) {
@@ -174,41 +205,52 @@ public extension XYZReminderKit{
 
 // MARK:- Update--(更新)
 public extension XYZReminderKit{
-    
-    func Update(With ID:String,title:String = "修改成功")  {
+    func Update(ReminderX:EKReminder,GetBackEvent: @escaping ( EKReminder?) -> Void) {
         //获取"提醒"的访问授权
-        let eventStore = EKEventStore()
-        eventStore.requestAccess(to: .reminder) {
-            (granted: Bool, error: Error?) -> Void in
-            
-            if granted{
-                // 获取授权后，我们可以得到所有的提醒事项
-                let predicate = eventStore.predicateForReminders(in: nil)
+        
+        self.FetchWithId(id: ReminderX.calendarItemIdentifier) { (ReminderXToUpdate,eventStoreX) in
+            if let ReminderXToUpdate = ReminderXToUpdate,let eventStore = eventStoreX {
                 
-                
-                eventStore.fetchReminders(matching: predicate, completion: {
-                    (reminders: [EKReminder]?) -> Void in
+                ReminderXToUpdate.title = ReminderX.title
+                ReminderXToUpdate.notes = ReminderX.notes
+                ReminderXToUpdate.dueDateComponents = ReminderX.dueDateComponents
+                //保存提醒事项
+                do {
+                    try eventStore.save(ReminderXToUpdate, commit: true)
                     
-                    //遍历所有提醒并修改
-                    for reminder in reminders! {
-                        if reminder.calendarItemIdentifier == ID{
-                            reminder.title = title
-                            reminder.calendar = eventStore.defaultCalendarForNewReminders()
-                            //保存提醒事项
-                            do {
-                                try eventStore.save(reminder, commit: true)
-                                print("保存成功！")
-                            }catch{
-                                print("保存失败: \(error)")
-                            }
-                            break
-                        }
-                    }
-                })
-            }else{
-                print("获取提醒失败！需要授权允许对提醒事项的访问。")
+                    GetBackEvent(ReminderXToUpdate)
+                    print("保存成功！")
+                }catch{
+                    print("保存失败: \(error)")
+                }
+                
             }
         }
+        
+    }
+    
+    
+    func Update(With ID:String,ToNewReminderX:EKReminder  ,GetBackEvent: @escaping ( EKReminder?) -> Void) {
+        //获取"提醒"的访问授权
+        
+        self.FetchWithId(id: ID) { (ReminderXToUpdate,eventStoreX) in
+            if let ReminderXToUpdate = ReminderXToUpdate,let eventStore = eventStoreX {
+                
+                ReminderXToUpdate.title = ToNewReminderX.title
+                ReminderXToUpdate.notes = ToNewReminderX.notes
+                //保存提醒事项
+                do {
+                    try eventStore.save(ReminderXToUpdate, commit: true)
+                    
+                    GetBackEvent(ReminderXToUpdate)
+                    print("保存成功！")
+                }catch{
+                    print("保存失败: \(error)")
+                }
+                
+            }
+        }
+        
     }
 }
 
@@ -269,3 +311,33 @@ private class XYZAlertObject: NSObject {
     }
     
 }
+
+
+
+
+
+
+
+//        let formatter = DateFormatter.init()
+//        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+//        let date = formatter.date(from: "2019-04-26 18:07:00")
+//        eventStore.requestAccess(to: .reminder, completion: { _,error in
+//            let reminder = EKReminder(eventStore: eventStore)
+//
+//            reminder.title = title //"今天要运动"
+//
+//
+//            let dueDate = self.dateComponentFromDate(self)
+//            reminder.dueDateComponents = dueDate
+//            reminder.calendar = eventStore.defaultCalendarForNewReminders();
+//            //            添加闹钟
+//            let alarm = EKAlarm.init(relativeOffset: -5)
+//            reminder.addAlarm(alarm);
+//            do {
+//                //                try self.eventStore.save(event, span: span)
+//                try eventStore.save(reminder, commit: true)
+//                print("保存成！")
+//            }catch{
+//                print("创建失败: \(error)")
+//            }
+//        })
