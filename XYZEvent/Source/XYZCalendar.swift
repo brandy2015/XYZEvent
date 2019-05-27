@@ -86,7 +86,7 @@ public extension XYZCalendarKit{
 }
 // MARK:- Retrieve--(读取查询) All--获取所有数据
 public extension XYZCalendarKit{
-//    CalendarX.calendarItemExternalIdentifier
+    //    CalendarX.calendarItemExternalIdentifier
     func FetchWith(id:String,GetBackEvent: @escaping (EKEvent?,EKEventStore?) -> Void) {
         
         let eventStore = EKEventStore()
@@ -115,19 +115,19 @@ public extension XYZCalendarKit{
                 
                 let eventsX = eventStore.events(matching: predicate2)
                 for i in eventsX {
-//                    print("循环了")
-//                    print(i.calendarItemExternalIdentifier)
-//                    print(i.eventIdentifier)
+                    //                    print("循环了")
+                    //                    print(i.calendarItemExternalIdentifier)
+                    //                    print(i.eventIdentifier)
                     
                     if i.calendarItemExternalIdentifier == id{
                         //返回Event
-//                        print("找到了")
-//                        print("🐒")
-//                        print("标题     \(String(describing: i.title))" )
-//                        print("开始时间: \(String(describing: i.startDate))" )
-//                        print("结束时间: \(String(describing: i.endDate))" )
-//                        print("ID:      \(String(describing: i.eventIdentifier))" )
-//                        print("🐒🐒")
+                        //                        print("找到了")
+                        //                        print("🐒")
+                        //                        print("标题     \(String(describing: i.title))" )
+                        //                        print("开始时间: \(String(describing: i.startDate))" )
+                        //                        print("结束时间: \(String(describing: i.endDate))" )
+                        //                        print("ID:      \(String(describing: i.eventIdentifier))" )
+                        //                        print("🐒🐒")
                         GetBackEvent(i,eventStore)
                         break
                     }
@@ -231,8 +231,8 @@ public extension XYZCalendarKit{
 
 // MARK:- Update--(更新)
 public extension XYZCalendarKit{
-
-    func Update(CalendarX:EKEvent,GetBackEvent: @escaping (EKEvent?) -> Void) {
+    
+    func Update(CalendarX:EKEvent,NewDate:Date,ToNewDate:Date,GetBackEvent: @escaping (EKEvent?) -> Void) {
         
         self.FetchWith(id: CalendarX.calendarItemExternalIdentifier) { (CalendarXToUpdate,eventStoreX) in
             
@@ -240,14 +240,14 @@ public extension XYZCalendarKit{
                 CalendarXToUpdate.title = CalendarX.title
                 
                 CalendarXToUpdate.notes = CalendarX.notes
-                CalendarXToUpdate.startDate = CalendarX.startDate
+                CalendarXToUpdate.startDate = NewDate
                 
-                CalendarXToUpdate.endDate = CalendarX.endDate
+                CalendarXToUpdate.endDate = ToNewDate
                 
                 //保存提醒事项
                 do {
                     try eventStore.save(CalendarXToUpdate, span: .thisEvent, commit: true)
-                     GetBackEvent(CalendarXToUpdate)
+                    GetBackEvent(CalendarXToUpdate)
                     
                     print("Update保存成功XX！")
                 }catch{
@@ -265,7 +265,7 @@ public extension XYZCalendarKit{
             
             if let CalendarXToUpdate = CalendarXToUpdate,let eventStore = eventStoreX {
                 
-
+                
                 CalendarXToUpdate.title = ToNewCalendarX.title
                 CalendarXToUpdate.notes = ToNewCalendarX.notes
                 CalendarXToUpdate.startDate = ToNewCalendarX.startDate

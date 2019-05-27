@@ -10,7 +10,7 @@ import UIKit
 import EventKit
 
 class XYZCalendar_Extension: NSObject {
-
+    
 }
 
 
@@ -42,26 +42,26 @@ public extension EKEvent{
                 }
             }else{
                 
-//                // 新建一个日历
-//                let event:EKEvent = EKEvent(eventStore: eventStore)
-//                event.title = title
-//                event.startDate = startDate
-//                event.endDate = endDate
-//                event.notes = notes
-//
-//
-//                let alarm = EKAlarm(absoluteDate: endDate)
-//
-//                event.addAlarm(alarm)
+                //                // 新建一个日历
+                //                let event:EKEvent = EKEvent(eventStore: eventStore)
+                //                event.title = title
+                //                event.startDate = startDate
+                //                event.endDate = endDate
+                //                event.notes = notes
+                //
+                //
+                //                let alarm = EKAlarm(absoluteDate: endDate)
+                //
+                //                event.addAlarm(alarm)
                 //                reminder.addAlarm(alarm)
                 
-//                //此处可以修改提醒事项在哪个空间
-//                event.calendar = eventStore.defaultCalendarForNewEvents
+                //                //此处可以修改提醒事项在哪个空间
+                //                event.calendar = eventStore.defaultCalendarForNewEvents
                 do{
                     try eventStore.save(self, span: .thisEvent)
                     print("Saved Event")
                     
-                   
+                    
                     if let succeeded = succeeded{
                         succeeded()
                     }
@@ -103,7 +103,7 @@ public extension String{
 public extension EKEvent{
     func CalUpdate(succeeded : (() -> Void)? = nil,failed : (() -> Void)? = nil ){
         
-        XYZEvent.Calendar.Update(CalendarX: self) { (eventXX) in
+        XYZEvent.Calendar.Update(CalendarX: self, NewDate: self.startDate, ToNewDate: self.endDate) { (eventXX) in
             if let _ = eventXX{
                 
                 if let succeeded = succeeded{
@@ -116,6 +116,7 @@ public extension EKEvent{
                 }
                 
             }
+            
         }
     }
 }
