@@ -21,18 +21,8 @@ class XYZCalendar_Extension: NSObject {
 public extension EKEvent{
     func CalSave(succeeded : (() -> Void)? = nil,failed : (() -> Void)? = nil ){
         let eventStore = EKEventStore()
-        eventStore.requestAccess(to: .event, completion: {
-            granted, error in
-            
-            guard granted  else{
-                print("没有授予权限，需要跳出弹出框提示用户进行跳转权限修改")
-                //失败后执行
-                if let failed = failed{
-                    failed()
-                }
-                return
-            }
-            
+        eventStore.requestAccess(to: .event, completion: {granted, error in
+            guard granted  else{failed?();print("没有授予权限，需要跳出弹出框提示用户进行跳转权限修改");return;}//失败后执行}
             if let error = error{
                 print("错误信息")
                 print(error)
@@ -60,11 +50,7 @@ public extension EKEvent{
                 do{
                     try eventStore.save(self, span: .thisEvent)
                     print("Saved Event")
-                    
-                    
-                    if let succeeded = succeeded{
-                        succeeded()
-                    }
+                    succeeded?()
                     //                    print("calendarid是🐒🐒🐒🐒🐒")
                     //                    print(event.calendarItemExternalIdentifier as Any)
                     
@@ -75,10 +61,7 @@ public extension EKEvent{
                     print("保存失败")
                     print(error)
                     //失败后执行
-                    if let failed = failed{
-                        failed()
-                    }
-                    
+                    failed?()
                 }
                 
             }
@@ -92,50 +75,21 @@ public extension EKEvent{
 // MARK:- Retrieve--(读取查询) All--获取所有数据
 public extension String{
     func FetchWithID(GetBackEvent: @escaping (EKEvent?,EKEventStore?) -> Void,succeeded : (() -> Void)? = nil,failed : (() -> Void)? = nil ){
-        
         XYZEvent.Calendar.FetchWith(id: self, GetBackEvent: GetBackEvent)
-        
     }
-    
 }
 // MARK:- Update--(更新)
-
 public extension EKEvent{
     func CalUpdate(succeeded : (() -> Void)? = nil,failed : (() -> Void)? = nil ){
-        
         XYZEvent.Calendar.Update(CalendarX: self, NewDate: self.startDate, ToNewDate: self.endDate) { (eventXX) in
-            if let _ = eventXX{
-                
-                if let succeeded = succeeded{
-                    succeeded()
-                }
-                
-            }else{
-                if let failed = failed{
-                    failed()
-                }
-                
-            }
-            
+            guard let _ = eventXX else{failed?();return}
+            succeeded?()
         }
     }
 }
 // MARK:- Delete--(删除)
-
 public extension EKEvent{
     func CalDelete(succeeded : (() -> Void)? = nil,failed : (() -> Void)? = nil ){
-        
-        
-        XYZEvent.Calendar.delete(id: self.calendarItemExternalIdentifier, succeeded: {
-            if let succeeded = succeeded{
-                succeeded()
-            }
-        }) {
-            if let failed = failed{
-                failed()
-            }
-        }
-        
-        
+        XYZEvent.Calendar.delete(id: self.calendarItemExternalIdentifier, succeeded: succeeded, failed: failed)
     }
 }

@@ -33,7 +33,7 @@ class TestTVC: UITableViewController {
             self.refreshControl?.beginRefreshing()
         }
        
-            XYZEvent.Reminder.FetchAll { (reminders) in
+            XYZEvent.Reminder.FetchAll { (reminders,_) in
                 if let reminders = reminders{
                     self.reminders = reminders.sorted(by: { (s1, s2) -> Bool in
                         s1.creationDate ?? Date() < s2.creationDate ?? Date()

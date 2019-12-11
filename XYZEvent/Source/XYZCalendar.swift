@@ -292,7 +292,7 @@ public extension XYZCalendarKit{
 public extension XYZCalendarKit{
     
     
-    func delete(id:String,succeeded : @escaping () -> Void,failed : @escaping () -> Void) {
+    func delete(id:String,succeeded : (() -> Void)? = nil,failed : (() -> Void)? = nil ){
         
         print("XXXXXXXX!!!!!!1111")
         let eventStore = EKEventStore()
@@ -325,8 +325,8 @@ public extension XYZCalendarKit{
                         do {
                             try eventStore.remove(Calendar, span: .thisEvent)
                             print("删除成功！")
-                            succeeded()
-                        }catch{failed();print("删除失败: \(error)")}
+                            succeeded?()
+                        }catch{failed?();print("删除失败: \(error)")}
                     }
                 }
             }else{print("获取提醒失败！需要授权允许对提醒事项的访问。")}
